@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <link rel="icon" type="image/svg+xml" href="favicon.svg" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Clock</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform -->
+    <div id="clock-container">
+      <svg viewBox="0 0 600 600">
+        <defs>
+          <rect id="1-min-tick" width="1" height="10" x="298" y="100" transform="rotate(6.5, 300, 300)" />
+
+          <g id="1-min-ticks">
+            <use xlink:href="#1-min-tick" />
+            <use xlink:href="#1-min-tick" transform="rotate(6, 300, 300)" />
+            <use xlink:href="#1-min-tick" transform="rotate(12, 300, 300)" />
+            <use xlink:href="#1-min-tick" transform="rotate(18, 300, 300)" />
+          </g>
+
+          <g id="5-min-tick">
+            <use xlink:href="#1-min-ticks" />
+            <rect class="minor-tick" width="2" height="20" x="298" y="90" />
+          </g>
+
+          <g id="tick-quadrant">
+            <rect class="major-tick" width="4" height="30" x="298" y="85" />
+            <use xlink:href="#1-min-ticks" />
+            <use xlink:href="#5-min-tick" transform="rotate(30, 300, 300)" />
+            <use xlink:href="#5-min-tick" transform="rotate(60, 300, 300)" />
+          </g>
+
+        </defs>
+
+        <circle cx="300" cy="300" r="200" fill="none" stroke="#000" />
+
+        <use xlink:href="#tick-quadrant" />
+        <use xlink:href="#tick-quadrant" transform="rotate(90, 300, 300)" />
+        <use xlink:href="#tick-quadrant" transform="rotate(180, 300, 300)" />
+        <use xlink:href="#tick-quadrant" transform="rotate(270, 300, 300)" />
+
+        <text class="tick-quadrant-number" x="280" y="80">12</text>
+        <text class="tick-quadrant-number" x="520" y="315">3</text>
+        <text class="tick-quadrant-number" x="290" y="550">6</text>
+        <text class="tick-quadrant-number" x="60" y="315">9</text>
+
+        <polygon id="hour-hand" points="300,320 320,300 300,140 280,300" stroke="#fff"
+          transform="rotate(0, 300, 300)" />
+
+        <polygon id="minute-hand" points="300,320 310,300 300,90 290,300" stroke="white"
+          transform="rotate(0, 300, 300)" />
+
+        <circle cx="300" cy="300" r="5" fill="black" stroke="white" />
+
+      </svg>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

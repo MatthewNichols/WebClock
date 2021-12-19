@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -5,4 +7,9 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
+  .tick-quadrant-number {
+    font-family: Montserrat, sans-serif;
+    font-size: 40px;
+  }
 }

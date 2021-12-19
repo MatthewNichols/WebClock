@@ -1,8 +1,13 @@
-import './style.css'
+import './style.scss'
 
-const app = document.querySelector<HTMLDivElement>('#app')!
+const minuteHand = document.getElementById('minute-hand');
+const hourHand = document.getElementById('hour-hand');
 
-app.innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+setInterval(() => {
+  const nowValue = new Date();
+  const minutesPosition = (nowValue.getMinutes() + (nowValue.getSeconds() / 60)) * 6;
+  const hourPos = ((nowValue.getHours() % 12) + (nowValue.getMinutes() / 60)) * 30;
+  
+  minuteHand?.setAttribute("transform", `rotate(${ minutesPosition }, 300, 300)`);
+  hourHand?.setAttribute("transform", `rotate(${ hourPos}, 300, 300)`)  
+}, 1000);
