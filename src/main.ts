@@ -13,7 +13,7 @@ function adjustTickClasses(currHourNumber: number) {
   tickNumbers.forEach((tickNum) => {
     const tickElem = document.getElementById(`tick-${tickNum}`) as HTMLElement;
     //something here about dealing with 12
-    const diff = Math.abs((tickNum % 12) - (currHourNumber % 12));
+    const diff = Math.floor(Math.abs((tickNum % 12) - (currHourNumber % 12)));
     
     let currClass: string | null = null;
     tickElem.classList.forEach((c) => currClass = c.startsWith("distance") ? c : currClass);
@@ -34,12 +34,15 @@ function adjustTickClasses(currHourNumber: number) {
 const updateTimeDisplay = () => {
   const nowValue = new Date();
   const minutesPosition = (nowValue.getMinutes() + (nowValue.getSeconds() / 60)) * 6;
-  const hourPos = ((nowValue.getHours() % 12) + (nowValue.getMinutes() / 60)) * 30;
+  const hourFractionalValue = (nowValue.getHours() % 12) + (nowValue.getMinutes() / 60);
+  const hourPos = hourFractionalValue * 30;
+
+  console.log(hourFractionalValue)
 
   minuteHand?.setAttribute("transform", `rotate(${minutesPosition}, 300, 300)`);
   hourHand?.setAttribute("transform", `rotate(${hourPos}, 300, 300)`);
 
-  adjustTickClasses(nowValue.getHours());
+  adjustTickClasses(hourFractionalValue);
 };
 
 updateTimeDisplay();
