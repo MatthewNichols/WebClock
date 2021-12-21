@@ -31,13 +31,17 @@ function adjustTickClasses(currHourNumber: number) {
   lastHourNumber = currHourNumber;
 }
 
-setInterval(() => {
+const updateTimeDisplay = () => {
   const nowValue = new Date();
   const minutesPosition = (nowValue.getMinutes() + (nowValue.getSeconds() / 60)) * 6;
   const hourPos = ((nowValue.getHours() % 12) + (nowValue.getMinutes() / 60)) * 30;
-  
-  minuteHand?.setAttribute("transform", `rotate(${ minutesPosition }, 300, 300)`);
-  hourHand?.setAttribute("transform", `rotate(${ hourPos}, 300, 300)`);
+
+  minuteHand?.setAttribute("transform", `rotate(${minutesPosition}, 300, 300)`);
+  hourHand?.setAttribute("transform", `rotate(${hourPos}, 300, 300)`);
 
   adjustTickClasses(nowValue.getHours());
-}, 1000);
+};
+
+updateTimeDisplay();
+
+setInterval(updateTimeDisplay, 1000);
